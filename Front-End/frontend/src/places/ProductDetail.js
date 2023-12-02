@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 
-const product = {
+ const product = {
   name: 'Basic Tee 6-Pack',
   price: '$192',
   href: '#',
@@ -11,6 +11,7 @@ const product = {
     { id: 1, name: 'Men', href: '#' },
     { id: 2, name: 'Clothing', href: '#' },
   ],
+
   images: [
     {
       src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',

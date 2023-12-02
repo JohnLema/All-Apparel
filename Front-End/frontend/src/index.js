@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { CartProvider } from 'react-use-cart';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -19,15 +20,15 @@ import Checkout from './places/Checkout';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode> 
-    <BrowserRouter >
+    <BrowserRouter basename = "/" >
         <Navbar/>
   <Routes>
-    <Route path="/home" element={<Home/>}/>
-    <Route exact path="/shop" element={<Shop/>}/>
-    <Route exact path="/about" element={<About/>}/>
-    <Route exact path="/contact" element={<Contact/>}/>
-    <Route exact path="/form" element={<Form/>}/>
-    <Route exact path="/productdetail" element={<ProductDetail/>}/>
+    <Route path="/" element={<Home/>}/>
+    <Route exact path="/Shop" element={<Shop/>}/>
+    <Route exact path="/About" element={<About/>}/>
+    <Route exact path="/Contact" element={<Contact/>}/>
+    <Route exact path="/Form" element={<Form/>}/>
+    <Route exact path="/Productdetail" element={<ProductDetail/>}/>
     <Route path="/Checkout" element={<Checkout/>}/>
   </Routes>
   <App />

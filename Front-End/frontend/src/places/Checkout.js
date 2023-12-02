@@ -1,23 +1,13 @@
-import React from 'react'
-/*
- This example requires some changes to your config:
-  ```
- // tailwind.config.js
- module.exports = {
-   // ...
-   plugins: [
-     // ...
-     require('@tailwindcss/forms'),
-   ],
- }
- ```
-*/
-import { useState } from 'react'
-import { RadioGroup } from '@headlessui/react'
-import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid'
+import React from 'react';
+import { useState  } from 'react';
+import { RadioGroup } from '@headlessui/react';
+import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { useCart } from "react-use-cart";
+import { useNavigate} from "react-router";
+import { Router } from 'react-router';
 
 
-const products = [
+const item = [
  {
    id: 1,
    title: 'Basic Tee',
@@ -28,7 +18,6 @@ const products = [
    imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg',
    imageAlt: "Front of men's Basic Tee in black.",
  },
- // More products...
 ]
 const deliveryMethods = [
  { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
@@ -45,10 +34,25 @@ function classNames(...classes) {
  return classes.filter(Boolean).join(' ')
 }
 
-
 function Checkout() {
-     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
+    
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
+  const {
+   isEmpty,
+   cartTotal,
+   totalUniqueItems,
+   items,
+   updateItemQuantity,
+   removeItem,
+   emptyCart,
+   metadata
+  } = useCart();
+  
+  const handleRemoveProductClick = (itemId) => {
+   removeItem(itemId); // Calling the removeItem function from useCart hook with the itemId parameter
+  };
 
+  // const navigate = useNavigate();
 
  return (
    <div>
@@ -415,7 +419,7 @@ function Checkout() {
            <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
              <h3 className="sr-only">Items in your cart</h3>
              <ul role="list" className="divide-y divide-gray-200">
-               {products.map((product) => (
+               {item.map((product) => (
                  <li key={product.id} className="flex px-4 py-6 sm:px-6">
                    <div className="flex-shrink-0">
                      <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" />
@@ -436,7 +440,9 @@ function Checkout() {
 
 
                        <div className="ml-4 flow-root flex-shrink-0">
+                        {/* DELETE BUTTON */}
                          <button
+                           onClick={() => handleRemoveProductClick(item.id)}Remove
                            type="button"
                            className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500"
                          >
@@ -512,6 +518,13 @@ function Checkout() {
    </div>
  )
 }
+
+// async function deleteItem() {
+//   await fetch (`http://localhost:3000/Checkout/${item.id}`, {
+//     method: 'DELETE'
+//   })
+//   navigate('/Checkout')
+// }
 
 
 export default Checkout
