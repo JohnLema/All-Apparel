@@ -5,9 +5,10 @@ import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useCart } from "react-use-cart";
 import { useNavigate} from "react-router";
 import { Router } from 'react-router';
+import { addToCart } from './ProductDetail';
 
 
-const item = [
+const product = [
  {
    id: 1,
    title: 'Basic Tee',
@@ -34,7 +35,7 @@ function classNames(...classes) {
  return classes.filter(Boolean).join(' ')
 }
 
-function Checkout() {
+export default function Checkout() {
     
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
   const {
@@ -44,13 +45,18 @@ function Checkout() {
    items,
    updateItemQuantity,
    removeItem,
-   emptyCart,
-   metadata
   } = useCart();
-  
-  const handleRemoveProductClick = (itemId) => {
-   removeItem(itemId); // Calling the removeItem function from useCart hook with the itemId parameter
+
+  // const productId = localStorage.getItem('productId');
+
+  const handleRemoveProductClick = (productId) => {
+   removeItem(productId); // Calling the removeItem function from useCart hook with the itemId parameter
   };
+
+  // const addToCart = (product) => {
+  //   addItem(product)
+  // };
+
 
   // const navigate = useNavigate();
 
@@ -419,10 +425,10 @@ function Checkout() {
            <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
              <h3 className="sr-only">Items in your cart</h3>
              <ul role="list" className="divide-y divide-gray-200">
-               {item.map((product) => (
+               {product.map((product) => (
                  <li key={product.id} className="flex px-4 py-6 sm:px-6">
                    <div className="flex-shrink-0">
-                     <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" />
+                     {/* <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" /> */}
                    </div>
 
 
@@ -442,7 +448,7 @@ function Checkout() {
                        <div className="ml-4 flow-root flex-shrink-0">
                         {/* DELETE BUTTON */}
                          <button
-                           onClick={() => handleRemoveProductClick(item.id)}Remove
+                           onClick={() => handleRemoveProductClick(product.id)}Remove
                            type="button"
                            className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500"
                          >
@@ -525,6 +531,3 @@ function Checkout() {
 //   })
 //   navigate('/Checkout')
 // }
-
-
-export default Checkout
