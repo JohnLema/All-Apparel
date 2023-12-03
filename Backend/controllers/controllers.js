@@ -5,13 +5,12 @@ const db = require("../models")
 const { Pool } = require('pg');
 
 const dbschema = new Pool({
-  user: 'your_username',
+  user: 'postgres',
   host: 'localhost',
-  database: 'your_database',
-  password: 'your_password',
+  database: 'finalproject',
+  password: "Ek5g7p",
   port: 5432,
 });
-
 router.get('/', async (req, res) => {
     let product = req.products
     if (isNaN(product)) {
