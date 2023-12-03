@@ -2,6 +2,9 @@ import React from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { signOut,} from "firebase/auth"
+import { auth, provider } from "./../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
@@ -14,6 +17,18 @@ function classNames(...classes) {
   }
 
 function Navbar() {
+
+  const [user, loading, error] = useAuthState(auth); //hook #1 check if my user is logged render the information
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+         console.log("You Logged out!");
+ 
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <div>
       <Disclosure as="nav" className="bg-gray-800">
@@ -41,6 +56,8 @@ function Navbar() {
                     alt="Your Company"
                   /> */}
                 </div>
+
+
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
@@ -66,10 +83,40 @@ function Navbar() {
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
-                  <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                  {/* <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> */}
+               Cart
                 </a>
 
               </div>
+{user &&
+(
+
+  <>
+ <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+ <button
+ onClick={logOut}
+   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+ >
+   <span className="absolute -inset-1.5" />
+   <span className="sr-only">View notifications</span>
+   Log Out
+ </button>
+
+</div>
+</>
+)}
+{!user &&(<><div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+ <a
+href='/Form'
+   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+ >
+   <span className="absolute -inset-1.5" />
+   <span className="sr-only">View notifications</span>
+   Login
+ </a>
+
+</div></>)}
+             
             </div>
           </div>
 
