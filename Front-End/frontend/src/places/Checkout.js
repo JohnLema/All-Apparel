@@ -7,19 +7,6 @@ import { useNavigate} from "react-router";
 import { Router } from 'react-router';
 import { addToCart } from './ProductDetail';
 
-
-const product = [
- {
-   id: 1,
-   title: 'Basic Tee',
-   href: '#',
-   price: '$32.00',
-   color: 'Black',
-   size: 'Large',
-   imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg',
-   imageAlt: "Front of men's Basic Tee in black.",
- },
-]
 const deliveryMethods = [
  { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
  { id: 2, title: 'Express', turnaround: '2–5 business days', price: '$16.00' },
@@ -47,19 +34,14 @@ export default function Checkout() {
    removeItem,
   } = useCart();
 
-  // const productId = localStorage.getItem('productId');
+console.log(items, 'items')
+
 
   const handleRemoveProductClick = (productId) => {
    removeItem(productId); // Calling the removeItem function from useCart hook with the itemId parameter
   };
 
-  // const addToCart = (product) => {
-  //   addItem(product)
-  // };
-
-
-  // const navigate = useNavigate();
-
+  
  return (
    <div>
      <div className="bg-gray-50">
@@ -425,7 +407,7 @@ export default function Checkout() {
            <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
              <h3 className="sr-only">Items in your cart</h3>
              <ul role="list" className="divide-y divide-gray-200">
-               {product.map((product) => (
+               {items.map((product) => (
                  <li key={product.id} className="flex px-4 py-6 sm:px-6">
                    <div className="flex-shrink-0">
                      {/* <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" /> */}
