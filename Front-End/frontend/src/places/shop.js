@@ -13,9 +13,9 @@ const products = [
 
     {
       id: 2,
-      name: 'Black Tee',
+      name: 'Blue Tee',
       href: '#',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+      imageSrc: 'https://images.unsplash.com/photo-1625075870953-8e9ec1d2cea9?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: "Front of men's Basic Tee in black.",
       price: '$35',
       color: 'Black',
@@ -23,9 +23,9 @@ const products = [
 
     {
       id: 3,
-      name: 'Black Tee',
+      name: 'Pink Tee',
       href: '#',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+      imageSrc: 'https://images.unsplash.com/photo-1603312568896-5dd4220b6d4e?q=80&w=1326&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       imageAlt: "Front of men's Basic Tee in black.",
       price: '$35',
       color: 'Black',

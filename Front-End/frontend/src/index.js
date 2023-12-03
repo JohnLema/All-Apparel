@@ -14,6 +14,7 @@ import ProductDetail from './places/ProductDetail';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Checkout from './places/Checkout';
+import Confirm from './places/Confirm';
 
 
 
@@ -32,6 +33,7 @@ root.render(
     <Route exact path="/Form" element={<Form/>}/>
     <Route exact path="/Productdetail" element={<ProductDetail/>}/>
     <Route path="/Checkout" element={<Checkout/>}/>
+    <Route path="/Confirm" element={<Confirm/>}/>
   </Routes>
   <App />
   <Footer/>

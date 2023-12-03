@@ -6,7 +6,6 @@ import Form from '../places/Form';
 
 function Hero() {
 
-
   return (
     <div>
       <div className="bg-white">

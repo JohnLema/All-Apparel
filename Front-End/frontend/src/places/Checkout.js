@@ -3,9 +3,12 @@ import { useState  } from 'react';
 import { RadioGroup } from '@headlessui/react';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useCart } from "react-use-cart";
-import { useNavigate} from "react-router";
 import { Router } from 'react-router';
 import { addToCart } from './ProductDetail';
+import Confirm from './Confirm';
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
 
 const deliveryMethods = [
  { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
@@ -41,6 +44,12 @@ console.log(items, 'items')
    removeItem(productId); // Calling the removeItem function from useCart hook with the itemId parameter
   };
 
+  const navigate = useNavigate();
+
+  const redirectToConfirmation = () => {
+    // Redirect to the confirmation page
+    navigate('/Confirm'); // Replace '/confirmation' with your confirmation page URL
+  };
   
  return (
    <div>
@@ -491,7 +500,8 @@ console.log(items, 'items')
 
              <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                <button
-                 type="submit"
+                onClick={()=> redirectToConfirmation()} 
+                 type="button"
                  className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                >
                  Confirm order
