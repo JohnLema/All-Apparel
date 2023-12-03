@@ -1,35 +1,15 @@
-import React from 'react'
-/*
- This example requires some changes to your config:
-  ```
- // tailwind.config.js
- module.exports = {
-   // ...
-   plugins: [
-     // ...
-     require('@tailwindcss/forms'),
-   ],
- }
- ```
-*/
-import { useState } from 'react'
-import { RadioGroup } from '@headlessui/react'
-import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid'
+import React from 'react';
+import { useState  } from 'react';
+import { RadioGroup } from '@headlessui/react';
+import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { useCart } from "react-use-cart";
+import { Router } from 'react-router';
+import { addToCart } from './ProductDetail';
+import Confirm from './Confirm';
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 
-const products = [
- {
-   id: 1,
-   title: 'Basic Tee',
-   href: '#',
-   price: '$32.00',
-   color: 'Black',
-   size: 'Large',
-   imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg',
-   imageAlt: "Front of men's Basic Tee in black.",
- },
- // More products...
-]
 const deliveryMethods = [
  { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
  { id: 2, title: 'Express', turnaround: '2–5 business days', price: '$16.00' },
@@ -45,11 +25,32 @@ function classNames(...classes) {
  return classes.filter(Boolean).join(' ')
 }
 
+export default function Checkout() {
+    
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
+  const {
+   isEmpty,
+   cartTotal,
+   totalUniqueItems,
+   items,
+   updateItemQuantity,
+   removeItem,
+  } = useCart();
 
-function Checkout() {
-     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
+console.log(items, 'items')
 
 
+  const handleRemoveProductClick = (productId) => {
+   removeItem(productId); // Calling the removeItem function from useCart hook with the itemId parameter
+  };
+
+  const navigate = useNavigate();
+
+  const redirectToConfirmation = () => {
+    // Redirect to the confirmation page
+    navigate('/Confirm'); // Replace '/confirmation' with your confirmation page URL
+  };
+  
  return (
    <div>
      <div className="bg-gray-50">
@@ -415,10 +416,10 @@ function Checkout() {
            <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
              <h3 className="sr-only">Items in your cart</h3>
              <ul role="list" className="divide-y divide-gray-200">
-               {products.map((product) => (
+               {items.map((product) => (
                  <li key={product.id} className="flex px-4 py-6 sm:px-6">
                    <div className="flex-shrink-0">
-                     <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" />
+                     {/* <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" /> */}
                    </div>
 
 
@@ -436,7 +437,9 @@ function Checkout() {
 
 
                        <div className="ml-4 flow-root flex-shrink-0">
+                        {/* DELETE BUTTON */}
                          <button
+                           onClick={() => handleRemoveProductClick(product.id)}Remove
                            type="button"
                            className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500"
                          >
@@ -497,7 +500,8 @@ function Checkout() {
 
              <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                <button
-                 type="submit"
+                onClick={()=> redirectToConfirmation()} 
+                 type="button"
                  className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                >
                  Confirm order
@@ -513,5 +517,9 @@ function Checkout() {
  )
 }
 
-
-export default Checkout
+// async function deleteItem() {
+//   await fetch (`http://localhost:3000/Checkout/${item.id}`, {
+//     method: 'DELETE'
+//   })
+//   navigate('/Checkout')
+// }
